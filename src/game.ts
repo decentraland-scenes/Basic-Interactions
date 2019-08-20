@@ -1,12 +1,22 @@
+let textOffset = new Transform({
+	position: new Vector3(0, 1, 0)
+  })
 
+function addLabel(text: string, parent: IEntity){
+	let label = new Entity()
+	label.setParent(parent)
+	label.addComponent(new Billboard())
+	label.addComponent(textOffset)
+	label.addComponent(new TextShape(text))
+	label.getComponent(TextShape).fontSize = 4
+	engine.addEntity(label)
+	}
 
 let greenMaterial = new Material()
 greenMaterial.albedoColor = Color3.Green()
 
 
-let textOffset = new Transform({
-  position: new Vector3(0, 1, 0)
-})
+
 
 // Click
 let clickCube = new Entity()
@@ -19,12 +29,8 @@ clickCube.addComponent(new OnClick(e => {
 }))
 engine.addEntity(clickCube)
 
-let label1 = new Entity()
-label1.setParent(clickCube)
-label1.addComponent(new Billboard())
-label1.addComponent(textOffset)
-label1.addComponent(new TextShape("Click here"))
-engine.addEntity(label1)
+addLabel("click", clickCube)
+
 
 
 // Pointer Down
@@ -38,12 +44,8 @@ pointerDownCube.addComponent(new OnPointerDown(e => {
 }))
 engine.addEntity(pointerDownCube)
 
-let label2 = new Entity()
-label2.setParent(pointerDownCube)
-label2.addComponent(new Billboard())
-label2.addComponent(textOffset)
-label2.addComponent(new TextShape("Pointer down"))
-engine.addEntity(label2)
+addLabel("Pointer down", pointerDownCube)
+
 
 
 // Pointer Up
@@ -57,12 +59,8 @@ pointerUpCube.addComponent(new OnPointerUp(e => {
 }))
 engine.addEntity(pointerUpCube)
 
-let label3 = new Entity()
-label3.setParent(pointerUpCube)
-label3.addComponent(new Billboard())
-label3.addComponent(textOffset)
-label3.addComponent(new TextShape("Pointer up"))
-engine.addEntity(label3)
+addLabel("Pointer up", pointerUpCube)
+
 
 
 // Distance from player
@@ -73,12 +71,7 @@ closeCube.addComponent(new Transform({
 closeCube.addComponent(new BoxShape())
 engine.addEntity(closeCube)
 
-let label4 = new Entity()
-label4.setParent(closeCube)
-label4.addComponent(new Billboard())
-label4.addComponent(textOffset)
-label4.addComponent(new TextShape("Walk near"))
-engine.addEntity(label4)
+addLabel("Walk near", closeCube)
 
 
 
@@ -146,12 +139,7 @@ sitCube.addComponent(new OnClick(e => {
 }))
 engine.addEntity(sitCube)
 
-let label5 = new Entity()
-label5.setParent(sitCube)
-label5.addComponent(new Billboard())
-label5.addComponent(textOffset)
-label5.addComponent(new TextShape("Play Sit"))
-engine.addEntity(label5)
+addLabel("Play sit", sitCube)
 
 
 // ground
