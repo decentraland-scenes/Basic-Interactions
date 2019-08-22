@@ -104,6 +104,54 @@ function distance(pos1: Vector3, pos2: Vector3): number {
   return a * a + b * b
 }
 
+
+/////////Global pointerdown
+
+
+// Instance the input object
+const input = Input.instance
+
+// button down event
+input.subscribe("BUTTON_DOWN", e => {
+  log("button A Down", e)
+  globalPointerDownCube.addComponentOrReplace(greenMaterial)
+})
+
+// button up event
+input.subscribe("BUTTON_UP", e => {
+  log("button A Up", e)
+  globalPointerUpCube.addComponentOrReplace(greenMaterial)
+})
+
+
+
+
+// Global Pointer Down
+let globalPointerDownCube = new Entity()
+globalPointerDownCube.addComponent(new Transform({
+  position: new Vector3(2, 1, 10),
+  scale: new Vector3(0.5, 0.5, 0.5)
+}))
+globalPointerDownCube.addComponent(new SphereShape())
+engine.addEntity(globalPointerDownCube)
+
+addLabel("Global down", globalPointerDownCube)
+
+
+
+// Global Pointer Up
+let globalPointerUpCube = new Entity()
+globalPointerUpCube.addComponent(new Transform({
+  position: new Vector3(2, 1, 12),
+  scale: new Vector3(0.5, 0.5, 0.5)
+}))
+globalPointerUpCube.addComponent(new SphereShape())
+engine.addEntity(globalPointerUpCube)
+
+addLabel("Global up", globalPointerUpCube)
+
+
+
 /////// ANIMATIONS
 
 // Play sit animation
@@ -150,3 +198,4 @@ floor.addComponent(new Transform({
   scale:new Vector3(1.6, 0.1, 1.6)
 }))
 engine.addEntity(floor)
+
