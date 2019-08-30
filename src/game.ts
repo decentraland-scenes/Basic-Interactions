@@ -8,7 +8,9 @@ function addLabel(text: string, parent: IEntity){
 	label.addComponent(new Billboard())
 	label.addComponent(textOffset)
 	label.addComponent(new TextShape(text))
-	label.getComponent(TextShape).fontSize = 4
+	label.getComponent(TextShape).fontSize = 3
+	label.getComponent(TextShape).color = Color3.Black()
+	
 	engine.addEntity(label)
 	}
 
