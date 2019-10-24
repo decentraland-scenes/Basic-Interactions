@@ -1,22 +1,5 @@
-let textOffset = new Transform({
-	position: new Vector3(0, 1.5, 0)
-  })
-
-function addLabel(text: string, parent: IEntity){
-	let label = new Entity()
-	label.setParent(parent)
-	label.addComponent(new Billboard())
-	label.addComponent(textOffset)
-	label.addComponent(new TextShape(text))
-	label.getComponent(TextShape).fontSize = 3
-	label.getComponent(TextShape).color = Color3.Black()
-	
-	engine.addEntity(label)
-	}
-
-let greenMaterial = new Material()
-greenMaterial.albedoColor = Color3.Green()
-
+import { addLabel } from "./labels"
+import { activate } from "./switchMaterial"
 
 
 // ground
@@ -29,14 +12,14 @@ floor.addComponent(new Transform({
 engine.addEntity(floor)
 
 
-// Click
+// Click Cube
 let clickCube = new Entity()
 clickCube.addComponent(new Transform({
   position: new Vector3(2, 1, 2)
 }))
 clickCube.addComponent(new BoxShape())
 clickCube.addComponent(new OnClick(e => {
-  clickCube.addComponentOrReplace(greenMaterial)
+  activate(clickCube)
 }))
 engine.addEntity(clickCube)
 
@@ -44,14 +27,14 @@ addLabel("click", clickCube)
 
 
 
-// Pointer Down
+// Pointer Down Cube
 let pointerDownCube = new Entity()
 pointerDownCube.addComponent(new Transform({
   position: new Vector3(2, 1, 4)
 }))
 pointerDownCube.addComponent(new BoxShape())
 pointerDownCube.addComponent(new OnPointerDown(e => {
-  pointerDownCube.addComponentOrReplace(greenMaterial)
+  activate(pointerDownCube)
 }))
 engine.addEntity(pointerDownCube)
 
@@ -59,69 +42,71 @@ addLabel("Pointer down", pointerDownCube)
 
 
 
-// Pointer Up
+// Pointer Up Cube
 let pointerUpCube = new Entity()
 pointerUpCube.addComponent(new Transform({
   position: new Vector3(2, 1, 6)
 }))
 pointerUpCube.addComponent(new BoxShape())
 pointerUpCube.addComponent(new OnPointerUp(e => {
-  pointerUpCube.addComponentOrReplace(greenMaterial)
+	activate(pointerUpCube)
 }))
 engine.addEntity(pointerUpCube)
 
 addLabel("Pointer up", pointerUpCube)
 
 
+////////////// Query sub-meshes
 
-// Distance from player
-let closeCube = new Entity()
-closeCube.addComponent(new Transform({
-  position: new Vector3(2, 1, 8)
+// robots base
+const robots = new Entity()
+robots.addComponent(new GLTFShape('models/Robots.glb'))
+robots.addComponent(new Transform({
+  position: new Vector3(12, 0, 2)
 }))
-closeCube.addComponent(new BoxShape())
-engine.addEntity(closeCube)
-
-addLabel("Walk near", closeCube)
+engine.addEntity(robots)
 
 
+// Robot feedback cube 1
+let robot1Cube = new Entity()
+robot1Cube.addComponent(new Transform({
+  position: new Vector3(13, 1, 1.5),
+  scale: new Vector3(0.5, 0.5, 0.5)
+}))
+robot1Cube.addComponent(new BoxShape())
+engine.addEntity(robot1Cube)
 
-// check distance for closeCube
-export class Proximity {
-  update() {
-    let transform = closeCube.getComponent(Transform)
-    let dist = distance(transform.position, camera.position)
-    if ( dist < 8) {
-      closeCube.addComponentOrReplace(greenMaterial)
-    }
-  }
-}
+addLabel("Click robot 1", robot1Cube)
 
-engine.addSystem(new Proximity())
 
-// Object that tracks user position and rotation
-const camera = Camera.instance
+// Robot feedback cube 2
+let robot2Cube = new Entity()
+robot2Cube.addComponent(new Transform({
+  position: new Vector3(10.5, 1, 1.5),
+  scale: new Vector3(0.5, 0.5, 0.5)
+}))
+robot2Cube.addComponent(new BoxShape())
+engine.addEntity(robot2Cube)
 
-// Get distance
-/*
-Note:
-This function really returns distance squared, as it's a lot more efficient to calculate.
-The square root operation is expensive and isn't really necessary if we compare the result to squared values.
-We also use {x,z} not {x,y}. The y-coordinate is how high up it is.
-*/
-function distance(pos1: Vector3, pos2: Vector3): number {
-  const a = pos1.x - pos2.x
-  const b = pos1.z - pos2.z
-  return a * a + b * b
-}
+addLabel("Click robot 2", robot2Cube)
+
+// Click event
+
+robots.addComponent(new OnPointerDown(e => {
+	log(e.hit.meshName)
+	if (e.hit.meshName == "Droid_01"){
+		activate(robot1Cube)
+	} else if (e.hit.meshName == "Droid_02"){
+		activate(robot2Cube)
+	}
+}))
+
 
 
 /////////Global pointerdown
 
 
-
-
-// Global Pointer Down
+// Global Pointer Down Sphere
 let globalPointerDownCube = new Entity()
 globalPointerDownCube.addComponent(new Transform({
   position: new Vector3(2, 1, 10),
@@ -134,7 +119,7 @@ addLabel("Global pointer down", globalPointerDownCube)
 
 
 
-// Global Pointer Up
+// Global Pointer Up Sphere
 let globalPointerUpCube = new Entity()
 globalPointerUpCube.addComponent(new Transform({
   position: new Vector3(2, 1, 12),
@@ -147,7 +132,7 @@ addLabel("Global pointer up", globalPointerUpCube)
 
 
 
-// Global Primary Down
+// Global Primary Down Sphere
 let globalPrimaryDownCube = new Entity()
 globalPrimaryDownCube.addComponent(new Transform({
   position: new Vector3(4, 1, 10),
@@ -160,7 +145,7 @@ addLabel("Global primary down", globalPrimaryDownCube)
 
 
 
-// Global Primary Up
+// Global Primary Up Sphere
 let globalPrimaryUpCube = new Entity()
 globalPrimaryUpCube.addComponent(new Transform({
   position: new Vector3(4, 1, 12),
@@ -173,7 +158,7 @@ addLabel("Global primary up", globalPrimaryUpCube)
 
 
 
-// Global Secondary Down
+// Global Secondary Down Sphere
 let globalSecondaryDownCube = new Entity()
 globalSecondaryDownCube.addComponent(new Transform({
   position: new Vector3(6, 1, 10),
@@ -186,7 +171,7 @@ addLabel("Global secondary down", globalSecondaryDownCube)
 
 
 
-// Global Secondary Up
+// Global Secondary Up Sphere
 let globalSecondaryUpCube = new Entity()
 globalSecondaryUpCube.addComponent(new Transform({
   position: new Vector3(6, 1, 12),
@@ -199,14 +184,7 @@ addLabel("Global secondary up", globalSecondaryUpCube)
 
 
 
-
-
-
-
-
-
-
-//  Primary Down
+//  Primary Down Cube (while pointing)
 let primaryDownCube = new Entity()
 primaryDownCube.addComponent(new Transform({
   position: new Vector3(8, 1, 12)
@@ -218,7 +196,7 @@ addLabel("Primary down", primaryDownCube)
 
 
 
-// Primary Up
+// Primary Up Cube (while pointing)
 let primaryUpCube = new Entity()
 primaryUpCube.addComponent(new Transform({
   position: new Vector3(10, 1, 12)
@@ -230,7 +208,7 @@ addLabel("Primary up", primaryUpCube)
 
 
 
-// Secondary Down
+// Secondary Down Cube (while pointing)
 let secondaryDownCube = new Entity()
 secondaryDownCube.addComponent(new Transform({
   position: new Vector3(12, 1, 12)
@@ -242,7 +220,7 @@ addLabel("Secondary down", secondaryDownCube)
 
 
 
-// Secondary Up
+// Secondary Up Cube (while pointing)
 let secondaryUpCube = new Entity()
 secondaryUpCube.addComponent(new Transform({
   position: new Vector3(14, 1, 12)
@@ -253,70 +231,24 @@ engine.addEntity(secondaryUpCube)
 addLabel("Secondary up", secondaryUpCube)
 
 
-// robots base
-const robots = new Entity()
-robots.addComponent(new GLTFShape('models/Robots.glb'))
-robots.addComponent(new Transform({
-  position: new Vector3(12, 0, 2)
-}))
-engine.addEntity(robots)
-
-robots.addComponent(new OnPointerDown(e => {
-	log(e.hit.meshName)
-	if (e.hit.meshName == "Droid_01"){
-		robot1Cube.addComponentOrReplace(greenMaterial)
-	} else if (e.hit.meshName == "Droid_02"){
-		robot2Cube.addComponentOrReplace(greenMaterial)
-	}
-}))
-
-
-// Robot1
-let robot1Cube = new Entity()
-robot1Cube.addComponent(new Transform({
-  position: new Vector3(13, 1, 1.5),
-  scale: new Vector3(0.5, 0.5, 0.5)
-}))
-robot1Cube.addComponent(new BoxShape())
-engine.addEntity(robot1Cube)
-
-addLabel("Click robot 1", robot1Cube)
-
-
-// Robot2
-let robot2Cube = new Entity()
-robot2Cube.addComponent(new Transform({
-  position: new Vector3(10.5, 1, 1.5),
-  scale: new Vector3(0.5, 0.5, 0.5)
-}))
-robot2Cube.addComponent(new BoxShape())
-engine.addEntity(robot2Cube)
-
-addLabel("Click robot 2", robot2Cube)
-
-
-
-
 // Instance the input object
 const input = Input.instance
 
 // pointer down event
 input.subscribe("BUTTON_DOWN", ActionButton.POINTER, true, e => {
   log("pointer down", e)
+  activate(globalPointerDownCube)
   if(e.hit.entityId == pointerDownCube.uuid){
-	pointerDownCube.addComponentOrReplace(greenMaterial)
-  } else {
-	globalPointerDownCube.addComponentOrReplace(greenMaterial)
+	activate(pointerDownCube)
   }
 })
 
 // pointer up event
 input.subscribe("BUTTON_UP", ActionButton.POINTER, true, e => {
 	log("pointer down", e)
+	activate(globalPointerUpCube)
 	if(e.hit.entityId == pointerUpCube.uuid){
-		pointerUpCube.addComponentOrReplace(greenMaterial)
-	} else {
-		globalPointerUpCube.addComponentOrReplace(greenMaterial)
+		activate(pointerUpCube)
 	}
 })
 
@@ -324,41 +256,79 @@ input.subscribe("BUTTON_UP", ActionButton.POINTER, true, e => {
 // primary down event
 input.subscribe("BUTTON_DOWN", ActionButton.PRIMARY, true, e => {
 	log("primary down", e)
+	activate(globalPrimaryDownCube)
 	if(e.hit.entityId == primaryDownCube.uuid){
-		primaryDownCube.addComponentOrReplace(greenMaterial)
-	} else {
-	  globalPrimaryDownCube.addComponentOrReplace(greenMaterial)
+		activate(primaryDownCube)
 	}
   })
 
 // primary up event
 input.subscribe("BUTTON_UP", ActionButton.PRIMARY, true, e => {
 	log("primary down", e)
+	activate(globalPrimaryUpCube)
 	if(e.hit.entityId == primaryUpCube.uuid){
-		primaryUpCube.addComponentOrReplace(greenMaterial)
-	} else {
-		globalPrimaryUpCube.addComponentOrReplace(greenMaterial)
+		activate(primaryUpCube)
 	}
 })
-
 
 
 // secondary down event
 input.subscribe("BUTTON_DOWN", ActionButton.SECONDARY, true, e => {
 	log("secondary down", e)
+	activate(globalSecondaryDownCube)
 	if(e.hit.entityId == secondaryDownCube.uuid){
-		secondaryDownCube.addComponentOrReplace(greenMaterial)
-	} else {
-	  globalSecondaryDownCube.addComponentOrReplace(greenMaterial)
+		activate(secondaryDownCube)
 	}
   })
   
 // secondary up event
 input.subscribe("BUTTON_UP", ActionButton.SECONDARY, true, e => {
 	log("secondary down", e)
+	activate(globalSecondaryUpCube)
 	if(e.hit.entityId == secondaryUpCube.uuid){
-		secondaryUpCube.addComponentOrReplace(greenMaterial)
-	} else {
-		globalSecondaryUpCube.addComponentOrReplace(greenMaterial)
+		activate(secondaryUpCube)
 	}
 })
+
+
+///////////// Distance from player
+
+
+// Object that tracks user position and rotation
+const camera = Camera.instance
+
+let closeCube = new Entity()
+closeCube.addComponent(new Transform({
+  position: new Vector3(2, 1, 8)
+}))
+closeCube.addComponent(new BoxShape())
+engine.addEntity(closeCube)
+
+addLabel("Walk near", closeCube)
+
+
+// check distance for closeCube
+export class Proximity {
+  update() {
+    let transform = closeCube.getComponent(Transform)
+    let dist = distance(transform.position, camera.position)
+    if ( dist < 8) {
+		activate(closeCube)
+    }
+  }
+}
+
+engine.addSystem(new Proximity())
+
+// Get distance
+/*
+Note:
+This function really returns distance squared, as it's a lot more efficient to calculate.
+The square root operation is expensive and isn't really necessary if we compare the result to squared values.
+We also use {x,z} not {x,y}. The y-coordinate is how high up it is.
+*/
+function distance(pos1: Vector3, pos2: Vector3): number {
+	const a = pos1.x - pos2.x
+	const b = pos1.z - pos2.z
+	return a * a + b * b
+  }
