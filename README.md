@@ -6,6 +6,8 @@ A scene with examples of some simple interactions. Perform the corresponding act
 [Explore the scene](https://blockdog-flbnuykvwf.now.sh): this link takes you to a copy of the scene deployed to a remote server where you can interact with it just as if you were running `dcl start` locally.
 -->
 
+![](screenshot/screenshot.png)
+
 **Install the CLI**
 
 Download and install the Decentraland CLI by running the following command
@@ -15,7 +17,6 @@ npm i -g decentraland
 ```
 
 For a more details, follow the steps in the [Installation guide](https://docs.decentraland.org/documentation/installation-guide/).
-
 
 **Previewing the scene**
 
@@ -34,7 +35,6 @@ Any dependencies are installed and then the CLI will open the scene in a new bro
 Follow the labels on each cube to turn it green, testing all the different ways a player can interact with a Decentraland scene.
 
 Learn more about how to build your own scenes in our [documentation](https://docs.decentraland.org/) site.
-
 
 ## Copyright info
 
