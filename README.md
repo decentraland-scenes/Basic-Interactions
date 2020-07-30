@@ -20,7 +20,7 @@ This scene shows you:
 - How to handle global key E up and down events
 - How to handle global key F up and down events
 - How to periodically check the distance between the player and an entity
-- How to fetch the mesh name within a GLTFShape that was clicked on from a pointer down event, to handle different behaviors depending on the mesh
+- How to fetch the name of the specific mesh that a button event acted on from a GLTFShape, to handle different behaviors depending on the mesh
 - How to change the materials of a primitive shape
 - How to delay an action
 
