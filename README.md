@@ -24,6 +24,8 @@ This scene shows you:
 - How to change the materials of a primitive shape
 - How to delay an action
 
+## Try it out
+
 **Install the CLI**
 
 Download and install the Decentraland CLI by running the following command:
