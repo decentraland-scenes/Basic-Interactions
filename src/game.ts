@@ -1,117 +1,118 @@
 import { addLabel } from './labels'
 import { activate } from './switchMaterial'
 
-// ground
-let floor = new Entity()
-floor.addComponent(new GLTFShape('models/FloorBaseGrass.glb'))
-floor.addComponent(
-  new Transform({
-    position: new Vector3(8, 0, 8),
-    scale: new Vector3(1.6, 0.1, 1.6)
-  })
-)
-engine.addEntity(floor)
-
 // Click Cube
-let clickCube = new Entity()
+
+let clickCube = createCube(new Vector3(2, 1, 2), 'click')
+
 clickCube.addComponent(
-  new Transform({
-    position: new Vector3(2, 1, 2)
-  })
-)
-clickCube.addComponent(new BoxShape())
-clickCube.addComponent(
-  new OnClick(e => {
+  new OnClick((e) => {
     activate(clickCube)
   })
 )
-engine.addEntity(clickCube)
-
-addLabel('click', clickCube)
 
 // Pointer Down Cube
-let pointerDownCube = new Entity()
-pointerDownCube.addComponent(
-  new Transform({
-    position: new Vector3(2, 1, 4)
-  })
-)
-pointerDownCube.addComponent(new BoxShape())
+
+let pointerDownCube = createCube(new Vector3(2, 1, 4), 'Pointer down')
+
 pointerDownCube.addComponent(
   new OnPointerDown(
-    e => {
+    (e) => {
       activate(pointerDownCube)
     },
     { button: ActionButton.POINTER, hoverText: 'Activate' }
   )
 )
-engine.addEntity(pointerDownCube)
-
-addLabel('Pointer down', pointerDownCube)
 
 // Pointer Up Cube
-let pointerUpCube = new Entity()
-pointerUpCube.addComponent(
-  new Transform({
-    position: new Vector3(2, 1, 6)
-  })
-)
-pointerUpCube.addComponent(new BoxShape())
+
+let pointerUpCube = createCube(new Vector3(2, 1, 6), 'Pointer up')
+
 pointerUpCube.addComponent(
   new OnPointerUp(
-    e => {
+    (e) => {
       activate(pointerUpCube)
     },
     { button: ActionButton.POINTER, hoverText: 'Activate' }
   )
 )
-engine.addEntity(pointerUpCube)
 
-addLabel('Pointer up', pointerUpCube)
+//  Primary Down Cube (while pointing)
+let primaryDownCube = createCube(new Vector3(8, 1, 12), 'Primary down')
+
+primaryDownCube.addComponent(
+  new OnPointerDown(
+    (e) => {
+      activate(primaryDownCube)
+    },
+    { button: ActionButton.PRIMARY, hoverText: 'Activate' }
+  )
+)
+
+// Primary Up Cube (while pointing)
+let primaryUpCube = createCube(new Vector3(10, 1, 12), 'Primary up')
+
+primaryUpCube.addComponent(
+  new OnPointerUp(
+    (e) => {
+      activate(primaryUpCube)
+    },
+    { button: ActionButton.PRIMARY, hoverText: 'Activate' }
+  )
+)
+
+// Secondary Down Cube (while pointing)
+let secondaryDownCube = createCube(new Vector3(12, 1, 12), 'Secondary down')
+
+secondaryDownCube.addComponent(
+  new OnPointerDown(
+    (e) => {
+      activate(secondaryDownCube)
+    },
+    { button: ActionButton.SECONDARY, hoverText: 'Activate' }
+  )
+)
+
+// Secondary Up Cube (while pointing)
+let secondaryUpCube = createCube(new Vector3(14, 1, 12), 'Secondary up')
+
+secondaryUpCube.addComponent(
+  new OnPointerUp(
+    (e) => {
+      activate(secondaryUpCube)
+    },
+    { button: ActionButton.SECONDARY, hoverText: 'Activate' }
+  )
+)
 
 ////////////// Query sub-meshes
 
 // robots base
+
 const robots = new Entity()
 robots.addComponent(new GLTFShape('models/Robots.glb'))
 robots.addComponent(
   new Transform({
-    position: new Vector3(12, 0, 2)
+    position: new Vector3(12, 0, 2),
   })
 )
 engine.addEntity(robots)
 
 // Robot feedback cube 1
-let robot1Cube = new Entity()
-robot1Cube.addComponent(
-  new Transform({
-    position: new Vector3(13, 1, 1.5),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
-)
-robot1Cube.addComponent(new BoxShape())
-engine.addEntity(robot1Cube)
 
-addLabel('Click robot 1', robot1Cube)
+let robot1Cube = createCube(new Vector3(13, 1, 1.5), 'Click robot 1')
+robot1Cube.getComponent(Transform).scale.setAll(0.5)
 
 // Robot feedback cube 2
-let robot2Cube = new Entity()
-robot2Cube.addComponent(
-  new Transform({
-    position: new Vector3(10.5, 1, 1.5),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
-)
-robot2Cube.addComponent(new BoxShape())
-engine.addEntity(robot2Cube)
 
-addLabel('Click robot 2', robot2Cube)
+let robot2Cube = createCube(new Vector3(10.5, 1, 1.5), 'Click robot 2')
+robot2Cube.getComponent(Transform).scale.setAll(0.5)
 
 // Click event
 
 robots.addComponent(
   new OnPointerDown(
-    e => {
+    (e) => {
       log(e.hit.meshName)
       if (e.hit.meshName == 'Droid_01') {
         activate(robot1Cube)
@@ -119,250 +120,104 @@ robots.addComponent(
         activate(robot2Cube)
       }
     },
-    { button: ActionButton.POINTER, showFeeback: false }
+    { button: ActionButton.POINTER, showFeedback: false }
   )
 )
 
 /////////Global pointerdown
 
 // Global Pointer Down Sphere
-let globalPointerDownCube = new Entity()
-globalPointerDownCube.addComponent(
-  new Transform({
-    position: new Vector3(2, 1, 10),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
+let globalPointerDownCube = createCube(
+  new Vector3(2, 1, 10),
+  'Global pointer down',
+  true
 )
-globalPointerDownCube.addComponent(new SphereShape())
-engine.addEntity(globalPointerDownCube)
-
-addLabel('Global pointer down', globalPointerDownCube)
 
 // Global Pointer Up Sphere
-let globalPointerUpCube = new Entity()
-globalPointerUpCube.addComponent(
-  new Transform({
-    position: new Vector3(2, 1, 12),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
+let globalPointerUpCube = createCube(
+  new Vector3(2, 1, 12),
+  'Global pointer up',
+  true
 )
-globalPointerUpCube.addComponent(new SphereShape())
-engine.addEntity(globalPointerUpCube)
-
-addLabel('Global pointer up', globalPointerUpCube)
 
 // Global Primary Down Sphere
-let globalPrimaryDownCube = new Entity()
-globalPrimaryDownCube.addComponent(
-  new Transform({
-    position: new Vector3(4, 1, 10),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
+let globalPrimaryDownCube = createCube(
+  new Vector3(4, 1, 10),
+  'Global primary down',
+  true
 )
-globalPrimaryDownCube.addComponent(new SphereShape())
-engine.addEntity(globalPrimaryDownCube)
-
-addLabel('Global primary down', globalPrimaryDownCube)
 
 // Global Primary Up Sphere
-let globalPrimaryUpCube = new Entity()
-globalPrimaryUpCube.addComponent(
-  new Transform({
-    position: new Vector3(4, 1, 12),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
+let globalPrimaryUpCube = createCube(
+  new Vector3(4, 1, 12),
+  'Global primary up',
+  true
 )
-globalPrimaryUpCube.addComponent(new SphereShape())
-engine.addEntity(globalPrimaryUpCube)
-
-addLabel('Global primary up', globalPrimaryUpCube)
 
 // Global Secondary Down Sphere
-let globalSecondaryDownCube = new Entity()
-globalSecondaryDownCube.addComponent(
-  new Transform({
-    position: new Vector3(6, 1, 10),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
+let globalSecondaryDownCube = createCube(
+  new Vector3(6, 1, 10),
+  'Global secondary down',
+  true
 )
-globalSecondaryDownCube.addComponent(new SphereShape())
-engine.addEntity(globalSecondaryDownCube)
-
-addLabel('Global secondary down', globalSecondaryDownCube)
 
 // Global Secondary Up Sphere
-let globalSecondaryUpCube = new Entity()
-globalSecondaryUpCube.addComponent(
-  new Transform({
-    position: new Vector3(6, 1, 12),
-    scale: new Vector3(0.5, 0.5, 0.5)
-  })
-)
-globalSecondaryUpCube.addComponent(new SphereShape())
-engine.addEntity(globalSecondaryUpCube)
-
-addLabel('Global secondary up', globalSecondaryUpCube)
-
-//  Primary Down Cube (while pointing)
-let primaryDownCube = new Entity()
-primaryDownCube.addComponent(
-  new Transform({
-    position: new Vector3(8, 1, 12)
-  })
-)
-primaryDownCube.addComponent(new BoxShape())
-primaryDownCube.addComponent(
-  new OnPointerDown(
-    e => {
-      activate(primaryDownCube)
-    },
-    { button: ActionButton.PRIMARY, hoverText: 'Activate' }
-  )
+let globalSecondaryUpCube = createCube(
+  new Vector3(6, 1, 12),
+  'Global secondary up',
+  true
 )
 
-engine.addEntity(primaryDownCube)
-
-addLabel('Primary down', primaryDownCube)
-
-// Primary Up Cube (while pointing)
-let primaryUpCube = new Entity()
-primaryUpCube.addComponent(
-  new Transform({
-    position: new Vector3(10, 1, 12)
-  })
-)
-primaryUpCube.addComponent(new BoxShape())
-primaryUpCube.addComponent(
-  new OnPointerUp(
-    e => {
-      activate(primaryUpCube)
-    },
-    { button: ActionButton.PRIMARY, hoverText: 'Activate' }
-  )
-)
-
-engine.addEntity(primaryUpCube)
-
-addLabel('Primary up', primaryUpCube)
-
-// Secondary Down Cube (while pointing)
-let secondaryDownCube = new Entity()
-secondaryDownCube.addComponent(
-  new Transform({
-    position: new Vector3(12, 1, 12)
-  })
-)
-secondaryDownCube.addComponent(new BoxShape())
-secondaryDownCube.addComponent(
-  new OnPointerDown(
-    e => {
-      activate(secondaryDownCube)
-    },
-    { button: ActionButton.SECONDARY, hoverText: 'Activate' }
-  )
-)
-engine.addEntity(secondaryDownCube)
-
-addLabel('Secondary down', secondaryDownCube)
-
-// Secondary Up Cube (while pointing)
-let secondaryUpCube = new Entity()
-secondaryUpCube.addComponent(
-  new Transform({
-    position: new Vector3(14, 1, 12)
-  })
-)
-secondaryUpCube.addComponent(new BoxShape())
-secondaryUpCube.addComponent(
-  new OnPointerUp(
-    e => {
-      activate(secondaryUpCube)
-    },
-    { button: ActionButton.SECONDARY, hoverText: 'Activate' }
-  )
-)
-engine.addEntity(secondaryUpCube)
-
-addLabel('Secondary up', secondaryUpCube)
+/////// GLOBAL EVENT LISTENERS
 
 // Instance the input object
 const input = Input.instance
 
 // pointer down event
-input.subscribe('BUTTON_DOWN', ActionButton.POINTER, true, e => {
+input.subscribe('BUTTON_DOWN', ActionButton.POINTER, true, (e) => {
   log('pointer down', e)
   activate(globalPointerDownCube)
-  //   if (e.hit.entityId == pointerDownCube.uuid) {
-  //     activate(pointerDownCube)
-  //   }
 })
 
 // pointer up event
-input.subscribe('BUTTON_UP', ActionButton.POINTER, true, e => {
+input.subscribe('BUTTON_UP', ActionButton.POINTER, true, (e) => {
   log('pointer down', e)
   activate(globalPointerUpCube)
-  //   if (e.hit.entityId == pointerUpCube.uuid) {
-  //     activate(pointerUpCube)
-  //   }
 })
 
 // primary down event
-input.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, true, e => {
+input.subscribe('BUTTON_DOWN', ActionButton.PRIMARY, true, (e) => {
   log('primary down', e)
   activate(globalPrimaryDownCube)
-  //   if (e.hit.entityId == primaryDownCube.uuid) {
-  //     activate(primaryDownCube)
-  //   }
 })
 
 // primary up event
-input.subscribe('BUTTON_UP', ActionButton.PRIMARY, true, e => {
+input.subscribe('BUTTON_UP', ActionButton.PRIMARY, true, (e) => {
   log('primary down', e)
   activate(globalPrimaryUpCube)
-  //   if (e.hit.entityId == primaryUpCube.uuid) {
-  //     activate(primaryUpCube)
-  //   }
 })
 
 // secondary down event
-input.subscribe('BUTTON_DOWN', ActionButton.SECONDARY, true, e => {
+input.subscribe('BUTTON_DOWN', ActionButton.SECONDARY, true, (e) => {
   log('secondary down', e)
   activate(globalSecondaryDownCube)
-  //   if (e.hit.entityId == secondaryDownCube.uuid) {
-  //     activate(secondaryDownCube)
-  //   }
 })
 
 // secondary up event
-input.subscribe('BUTTON_UP', ActionButton.SECONDARY, true, e => {
+input.subscribe('BUTTON_UP', ActionButton.SECONDARY, true, (e) => {
   log('secondary down', e)
   activate(globalSecondaryUpCube)
-  //   if (e.hit.entityId == secondaryUpCube.uuid) {
-  //     activate(secondaryUpCube)
-  //   }
 })
 
 ///////////// Distance from player
 
-// Object that tracks user position and rotation
-const camera = Camera.instance
-
-let closeCube = new Entity()
-closeCube.addComponent(
-  new Transform({
-    position: new Vector3(2, 1, 8)
-  })
-)
-closeCube.addComponent(new BoxShape())
-engine.addEntity(closeCube)
-
-addLabel('Walk near', closeCube)
+let closeCube = createCube(new Vector3(2, 1, 9), 'Walk near')
 
 // check distance for closeCube
 export class Proximity {
   update() {
     let transform = closeCube.getComponent(Transform)
-    let dist = distance(transform.position, camera.position)
+    let dist = distance(transform.position, Camera.instance.position)
     if (dist < 8) {
       activate(closeCube)
     }
@@ -370,6 +225,38 @@ export class Proximity {
 }
 
 engine.addSystem(new Proximity())
+
+// ground
+let floor = new Entity()
+floor.addComponent(new GLTFShape('models/FloorBaseGrass.glb'))
+floor.addComponent(
+  new Transform({
+    position: new Vector3(8, 0, 8),
+    scale: new Vector3(1.6, 0.1, 1.6),
+  })
+)
+engine.addEntity(floor)
+
+// reusable functions to add each cube and sphere
+function createCube(pos: Vector3, label: string, sphere?: boolean) {
+  let cube = new Entity()
+  cube.addComponent(
+    new Transform({
+      position: pos,
+    })
+  )
+  if (sphere == true) {
+    cube.addComponent(new SphereShape())
+    cube.getComponent(Transform).scale.setAll(0.5)
+  } else {
+    cube.addComponent(new BoxShape())
+  }
+
+  engine.addEntity(cube)
+  addLabel(label, cube)
+
+  return cube
+}
 
 // Get distance
 /*
