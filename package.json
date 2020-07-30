@@ -12,7 +12,7 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "decentraland-ecs": "^6.4.5-20200116160858.commit-a71ef29",
+    "decentraland-ecs": "^6.4.9",
     "decentraland-ecs-utils": "^1.1.3"
   }
 }
