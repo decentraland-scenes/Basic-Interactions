@@ -36,6 +36,9 @@ Follow the labels on each cube to turn it green, testing all the different ways 
 
 Learn more about how to build your own scenes in our [documentation](https://docs.decentraland.org/) site.
 
+
+If something doesn’t work, please [file an issue](https://github.com/decentraland-scenes/Awesome-Repository/issues/new).
+
 ## Copyright info
 
 This scene is protected with a standard Apache 2 licence. See the terms and conditions in the [LICENSE](/LICENSE) file.
