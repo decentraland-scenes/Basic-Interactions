@@ -1,4 +1,4 @@
-# Basic interactions
+# Basic button events
 
 A scene with examples of some simple interactions. Perform the corresponding action on each cube to turn it green.
 
@@ -7,6 +7,22 @@ A scene with examples of some simple interactions. Perform the corresponding act
 -->
 
 ![](screenshot/screenshot.png)
+
+This scene shows you: 
+
+- How to handle a click event on an entity
+- How to handle pointer down event on an entity
+- How to handle pointer up event on an entity
+- How to handle a global pointer down event
+- How to handle a global pointer up event
+- How to handle key E up and down events on an entity
+- How to handle key F up and down events on an entity
+- How to handle global key E up and down events
+- How to handle global key F up and down events
+- How to periodically check the distance between the player and an entity
+- How to fetch the mesh name within a GLTFShape that was clicked on from a pointer down event, to handle different behaviors depending on the mesh
+- How to change the materials of a primitive shape
+- How to delay an action
 
 **Install the CLI**
 
@@ -35,7 +51,6 @@ Any dependencies are installed and then the CLI will open the scene in a new bro
 Follow the labels on each cube to turn it green, testing all the different ways a player can interact with a Decentraland scene.
 
 Learn more about how to build your own scenes in our [documentation](https://docs.decentraland.org/) site.
-
 
 If something doesn’t work, please [file an issue](https://github.com/decentraland-scenes/Awesome-Repository/issues/new).
 
