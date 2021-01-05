@@ -4,7 +4,7 @@ import { createCube } from './scene-utils'
 let closeCube = createCube(new Vector3(2, 1, 9), 'Walk near')
 
 // check distance for closeCube
-export class Proximity {
+export class Proximity implements ISystem {
   update() {
     let transform = closeCube.getComponent(Transform)
     let dist = distance(transform.position, Camera.instance.position)
