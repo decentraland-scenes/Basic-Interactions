@@ -12,7 +12,10 @@
   },
   "devDependencies": {},
   "dependencies": {
-    "decentraland-ecs": "^6.6.0",
-    "decentraland-ecs-utils": "^1.1.3"
-  }
+    "@dcl/ecs-scene-utils": "0.0.0-20210209180230.commit-2d36db3",
+    "decentraland-ecs": "^6.6.4-20210209162756.commit-e6ca81a"
+  },
+  "bundleDependencies": [
+    "@dcl/ecs-scene-utils"
+  ]
 }

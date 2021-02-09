@@ -1,4 +1,4 @@
-import utils from '../node_modules/decentraland-ecs-utils/index'
+import utils from '@dcl/ecs-scene-utils'
 
 // reusable materials
 let greenMaterial = new Material()
