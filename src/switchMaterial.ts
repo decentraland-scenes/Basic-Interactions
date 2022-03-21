@@ -1,10 +1,10 @@
 import * as utils from '@dcl/ecs-scene-utils'
 
 // reusable materials
-let greenMaterial = new Material()
+const greenMaterial = new Material()
 greenMaterial.albedoColor = Color3.Green()
 
-let lightGreenMaterial = new Material()
+const lightGreenMaterial = new Material()
 lightGreenMaterial.albedoColor = Color3.FromHexString('#abe8bd')
 
 export function activate(entity: Entity) {
