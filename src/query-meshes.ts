@@ -28,9 +28,9 @@ robots.addComponent(
   new OnPointerDown(
     (e) => {
       log(e.hit.meshName)
-      if (e.hit.meshName == 'Droid_01') {
+      if (e.hit.meshName === 'Droid_01') {
         activate(robot1Cube)
-      } else if (e.hit.meshName == 'Droid_02') {
+      } else if (e.hit.meshName === 'Droid_02') {
         activate(robot2Cube)
       }
     },

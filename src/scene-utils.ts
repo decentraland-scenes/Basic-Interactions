@@ -7,7 +7,7 @@ export function createCube(pos: Vector3, label: string, sphere?: boolean) {
       position: pos
     })
   )
-  if (sphere == true) {
+  if (sphere === true) {
     cube.addComponent(new SphereShape())
     cube.getComponent(Transform).scale.setAll(0.5)
   } else {
