@@ -1,13 +1,13 @@
 import { activate } from './switchMaterial'
 import { createCube } from './scene-utils'
 
-let closeCube = createCube(new Vector3(2, 1, 9), 'Walk near')
+const closeCube = createCube(new Vector3(2, 1, 9), 'Walk near')
 
 // check distance for closeCube
 export class Proximity implements ISystem {
   update() {
-    let transform = closeCube.getComponent(Transform)
-    let dist = distance(transform.position, Camera.instance.position)
+    const transform = closeCube.getComponent(Transform)
+    const dist = distance(transform.position, Camera.instance.position)
     if (dist < 8) {
       activate(closeCube)
     }
@@ -17,12 +17,12 @@ export class Proximity implements ISystem {
 engine.addSystem(new Proximity())
 
 // ground
-let floor = new Entity()
+const floor = new Entity()
 floor.addComponent(new GLTFShape('models/FloorBaseGrass.glb'))
 floor.addComponent(
   new Transform({
     position: new Vector3(8, 0, 8),
-    scale: new Vector3(1.6, 0.1, 1.6),
+    scale: new Vector3(1.6, 0.1, 1.6)
   })
 )
 engine.addEntity(floor)

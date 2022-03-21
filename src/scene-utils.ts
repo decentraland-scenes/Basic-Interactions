@@ -1,10 +1,10 @@
 // spawn cube
 
 export function createCube(pos: Vector3, label: string, sphere?: boolean) {
-  let cube = new Entity()
+  const cube = new Entity()
   cube.addComponent(
     new Transform({
-      position: pos,
+      position: pos
     })
   )
   if (sphere == true) {
@@ -20,14 +20,14 @@ export function createCube(pos: Vector3, label: string, sphere?: boolean) {
   return cube
 }
 
-export let textOffset = new Transform({
-  position: new Vector3(0, 1.5, 0),
+export const textOffset = new Transform({
+  position: new Vector3(0, 1.5, 0)
 })
 
 // add label to cube
 
 export function addLabel(text: string, parent: IEntity) {
-  let label = new Entity()
+  const label = new Entity()
   label.setParent(parent)
   label.addComponent(new Billboard())
   label.addComponent(textOffset)

@@ -1,21 +1,21 @@
 import { activate } from './switchMaterial'
 import { createCube } from './scene-utils'
 
-let clickCube = createCube(new Vector3(2, 1, 2), 'click')
+const clickCube = createCube(new Vector3(2, 1, 2), 'click')
 
 clickCube.addComponent(
-  new OnClick((e) => {
+  new OnClick((_e) => {
     activate(clickCube)
   })
 )
 
 // Pointer Down Cube
 
-let pointerDownCube = createCube(new Vector3(2, 1, 4), 'Pointer down')
+const pointerDownCube = createCube(new Vector3(2, 1, 4), 'Pointer down')
 
 pointerDownCube.addComponent(
   new OnPointerDown(
-    (e) => {
+    (_e) => {
       activate(pointerDownCube)
     },
     { button: ActionButton.POINTER, hoverText: 'Activate' }
@@ -24,11 +24,11 @@ pointerDownCube.addComponent(
 
 // Pointer Up Cube
 
-let pointerUpCube = createCube(new Vector3(2, 1, 6), 'Pointer up')
+const pointerUpCube = createCube(new Vector3(2, 1, 6), 'Pointer up')
 
 pointerUpCube.addComponent(
   new OnPointerUp(
-    (e) => {
+    (_e) => {
       activate(pointerUpCube)
     },
     { button: ActionButton.POINTER, hoverText: 'Activate' }
@@ -36,11 +36,11 @@ pointerUpCube.addComponent(
 )
 
 //  Primary Down Cube (while pointing)
-let primaryDownCube = createCube(new Vector3(8, 1, 12), 'Primary down')
+const primaryDownCube = createCube(new Vector3(8, 1, 12), 'Primary down')
 
 primaryDownCube.addComponent(
   new OnPointerDown(
-    (e) => {
+    (_e) => {
       activate(primaryDownCube)
     },
     { button: ActionButton.PRIMARY, hoverText: 'Activate' }
@@ -48,11 +48,11 @@ primaryDownCube.addComponent(
 )
 
 // Primary Up Cube
-let primaryUpCube = createCube(new Vector3(10, 1, 12), 'Primary up')
+const primaryUpCube = createCube(new Vector3(10, 1, 12), 'Primary up')
 
 primaryUpCube.addComponent(
   new OnPointerUp(
-    (e) => {
+    (_e) => {
       activate(primaryUpCube)
     },
     { button: ActionButton.PRIMARY, hoverText: 'Activate' }
@@ -60,11 +60,11 @@ primaryUpCube.addComponent(
 )
 
 // Secondary Down Cube
-let secondaryDownCube = createCube(new Vector3(12, 1, 12), 'Secondary down')
+const secondaryDownCube = createCube(new Vector3(12, 1, 12), 'Secondary down')
 
 secondaryDownCube.addComponent(
   new OnPointerDown(
-    (e) => {
+    (_e) => {
       activate(secondaryDownCube)
     },
     { button: ActionButton.SECONDARY, hoverText: 'Activate' }
@@ -72,11 +72,11 @@ secondaryDownCube.addComponent(
 )
 
 // Secondary Up Cube
-let secondaryUpCube = createCube(new Vector3(14, 1, 12), 'Secondary up')
+const secondaryUpCube = createCube(new Vector3(14, 1, 12), 'Secondary up')
 
 secondaryUpCube.addComponent(
   new OnPointerUp(
-    (e) => {
+    (_e) => {
       activate(secondaryUpCube)
     },
     { button: ActionButton.SECONDARY, hoverText: 'Activate' }

@@ -2,42 +2,42 @@ import { activate } from './switchMaterial'
 import { createCube } from './scene-utils'
 
 // Global Pointer Down Sphere
-let globalPointerDownCube = createCube(
+const globalPointerDownCube = createCube(
   new Vector3(2, 1, 10),
   'Global pointer down',
   true
 )
 
 // Global Pointer Up Sphere
-let globalPointerUpCube = createCube(
+const globalPointerUpCube = createCube(
   new Vector3(2, 1, 12),
   'Global pointer up',
   true
 )
 
 // Global Primary Down Sphere
-let globalPrimaryDownCube = createCube(
+const globalPrimaryDownCube = createCube(
   new Vector3(4, 1, 10),
   'Global primary down',
   true
 )
 
 // Global Primary Up Sphere
-let globalPrimaryUpCube = createCube(
+const globalPrimaryUpCube = createCube(
   new Vector3(4, 1, 12),
   'Global primary up',
   true
 )
 
 // Global Secondary Down Sphere
-let globalSecondaryDownCube = createCube(
+const globalSecondaryDownCube = createCube(
   new Vector3(6, 1, 10),
   'Global secondary down',
   true
 )
 
 // Global Secondary Up Sphere
-let globalSecondaryUpCube = createCube(
+const globalSecondaryUpCube = createCube(
   new Vector3(6, 1, 12),
   'Global secondary up',
   true
