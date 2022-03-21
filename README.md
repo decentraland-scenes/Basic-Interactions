@@ -1,5 +1,4 @@
 # Basic button events
-[![test-build](https://github.com/decentraland-scenes/Basic-Interactions/actions/workflows/ci.yml/badge.svg)](https://github.com/decentraland-scenes/Basic-Interactions/actions/workflows/ci.yml)
 
 A scene with examples of some simple interactions. Perform the corresponding action on each cube to turn it green.
 
