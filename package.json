@@ -8,9 +8,12 @@
     "watch": "build-ecs --watch",
     "deploy:now": "dcl export && now export",
     "ecs:install": "npm install --save-dev decentraland-ecs@latest",
-    "ecs:install-next": "npm install --save-dev decentraland-ecs@next"
+    "ecs:install-next": "npm install --save-dev decentraland-ecs@next",
+    "lint": "eslint . --ext .ts"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@dcl/eslint-config": "^1.0.1"
+  },
   "dependencies": {
     "@dcl/ecs-scene-utils": "latest",
     "decentraland-ecs": "latest"
