@@ -1,14 +1,6 @@
 import { activate } from './switchMaterial'
 import { createCube } from './scene-utils'
 
-const clickCube = createCube(new Vector3(2, 1, 2), 'click')
-
-clickCube.addComponent(
-  new OnClick((_e) => {
-    activate(clickCube)
-  })
-)
-
 // Pointer Down Cube
 
 const pointerDownCube = createCube(new Vector3(2, 1, 4), 'Pointer down')
